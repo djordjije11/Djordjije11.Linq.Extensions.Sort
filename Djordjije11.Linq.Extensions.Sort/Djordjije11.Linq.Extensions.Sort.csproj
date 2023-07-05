@@ -13,7 +13,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/djordjije11/Djordjije11.Linq.Extensions.Sort</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<Version>1.0.5</Version>
+		<Version>1.0.1</Version>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
 
