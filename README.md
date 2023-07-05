@@ -1,6 +1,6 @@
-# EntityFrameworkSorter
+# Sorter
 
-## Djordjije11.EntityFramework.Extensions.Query.Sort
+## Djordjije11.Linq.Extensions.Sort
 
 This small library is designed to facilitate the creation of sorting queries, building upon the original input query or enumerable.
 It can be used for building SQL queries with EntityFramework, adding properites to ORDER BY clause.
