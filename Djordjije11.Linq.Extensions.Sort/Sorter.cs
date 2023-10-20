@@ -72,7 +72,7 @@
         /// </summary>
         /// <returns>The built query from the original query and added SortPropertyExpression objects.</returns>
         public IQueryable<TEntity> Build() 
-            => sortQuery(_query, _sortPropertyExpressions);
+            => SortQuery(_query, _sortPropertyExpressions);
 
         /// <summary>
         /// Builds the query from the original query and added SortPropertyExpression objects.
@@ -98,7 +98,7 @@
             return Build();
         }
 
-        private IQueryable<TEntity> sortQuery(IQueryable<TEntity>? query, IEnumerable<SortPropertyExpression<TEntity>> sortPropertyExpressions)
+        private static IQueryable<TEntity> SortQuery(IQueryable<TEntity>? query, IEnumerable<SortPropertyExpression<TEntity>> sortPropertyExpressions)
         {
             if (query is null)
             {

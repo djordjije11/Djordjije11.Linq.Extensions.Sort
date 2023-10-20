@@ -37,5 +37,22 @@ namespace Djordjije11.Linq.Extensions.Sort
             _propertyExpression = propertyExpression;
             _ascending = ascending;
         }
+
+        public SortPropertyExpression(Expression<Func<TEntity, object?>> propertyExpression, SortDirection sortDirection) 
+            : this(propertyExpression, MapSortDirection(sortDirection)) 
+        {
+
+        }
+
+        private static bool? MapSortDirection(SortDirection sortDirection)
+        {
+            return sortDirection switch
+            {
+                SortDirection.Unsorted => null,
+                SortDirection.Ascending => true,
+                SortDirection.Descending => false,
+                _ => throw new NotSupportedException()
+            };
+        }
     }
 }

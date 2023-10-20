@@ -100,10 +100,10 @@ public ICollection<Employee> GetEmployeesOrderedByStatusAscThenFirstNameDescThen
 ```
 
 However, this approach lacks flexibility when attempting to create generic ways for constructing sorting queries.
-As an example, we could create a class EmployeeSortOptions:
+As an example, we could create a class EmployeeSortArgs:
 
 ```c#
-public class EmployeeSortOptions
+public class EmployeeSortArgs
 {
     public bool? IdAsc { get; set; }
     public bool? FirstNameAsc { get; set; }
@@ -114,22 +114,36 @@ public class EmployeeSortOptions
 }
 ```
 
-And then in the SortEmployees method just establish the ordering priorities for properties, so it is left to properties of EmployeeSortOptions object to specify which properties are used for sorting and whether the sorting order is ascending or descending. If the value of the property is null, the property will not be ordered at all and will be ignored.
+And then in the SortEmployees method just establish the ordering priorities for properties, so it is left to properties of EmployeeSortArgs object to specify which properties are used for sorting and whether the sorting order is ascending or descending. If the value of the property is null, the property will not be ordered at all and will be ignored.
 
 ```c#
-public IQueryable<Employee> SortEmployees(IQueryable<Employee> query, EmployeeSortOptions options)
+public IQueryable<Employee> SortEmployees(IQueryable<Employee> query, EmployeeSortArgs sortArgs)
 {
-    if(options != null)
+    if(sortArgs != null)
     {
         query = new Sorter<Employee>(query)
-          .Add(new(e => e.Status, options.StatusAsc))
-          .Add(new(e => e.FirstName, options.FirstNameAsc))
-          .Add(new(e => e.Gender, options.GenderAsc))
-          .Add(new(e => e.LastName, options.LastNameAsc))
-          .Add(new(e => e.Email, options.EmailAsc))
-          .Add(new(e => e.Id, options.IdAsc))
+          .Add(new(e => e.Status, sortArgs.StatusAsc))
+          .Add(new(e => e.FirstName, sortArgs.FirstNameAsc))
+          .Add(new(e => e.Gender, sortArgs.GenderAsc))
+          .Add(new(e => e.LastName, sortArgs.LastNameAsc))
+          .Add(new(e => e.Email, sortArgs.EmailAsc))
+          .Add(new(e => e.Id, sortArgs.IdAsc))
           .Build();
     }
     return query;
+}
+```
+
+Instead of bool? you can also use SortDirection enum type for properties:
+
+```c#
+public class EmployeeSortArgs
+{
+    public SortDirection Id { get; set; }
+    public SortDirection FirstName { get; set; }
+    public SortDirection LastName { get; set; }
+    public SortDirection Email { get; set; }
+    public SortDirection Gender { get; set; }
+    public SortDirection Status { get; set; }
 }
 ```
